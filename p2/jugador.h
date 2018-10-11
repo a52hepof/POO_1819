@@ -74,6 +74,7 @@ private:
 
 public:
 
+	inline int prueba(){return 1;};
 
 
 
