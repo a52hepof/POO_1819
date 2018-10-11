@@ -14,11 +14,11 @@ Repositorio local en:
 
 Una vez en repositorio local, actualizar los cambios que estén en el remoto
 
-git pull
+    git pull
 
 Después de modificar el fichero en local
 
-gitt add ./
-git commit -m "Descripción commit"
-git push -u origin master
+    gitt add ./
+    git commit -m "Descripción commit realizado"
+    git push -u origin master
 
