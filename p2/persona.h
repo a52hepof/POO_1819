@@ -25,7 +25,6 @@ de edad.
 
 #include <string>
 
-
 using namespace std;
 
 
@@ -39,7 +38,7 @@ private:
 
 
 public:
-	Persona(string DNI, string nombre="",string apellidos="",int edad=0, string direccion="",string localidad="",string provincia="",string pais="" ){
+	Persona(string DNI, string nombre="",string apellidos="",int edad=0, string direccion="",string localidad="",string provincia="",string pais=""){
 
 		DNI_=DNI;
 		nombre_=nombre;
@@ -58,7 +57,7 @@ public:
 
 		DNI_=DNI;
 	};
-	inline const string getDNI(){return DNI_;};
+	inline  string getDNI() const{return DNI_;};
 
 
 	//Nombre
