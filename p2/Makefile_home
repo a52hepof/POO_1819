@@ -14,7 +14,7 @@
 
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
-GTEST_DIR = /home/a52hepof/asignaturas/segundo/poo/googletest/
+GTEST_DIR = /home/fernando/101/segundo/POOBJ/googletest/
 
 # Where to find user code.
 # USER_DIR = ../samples
@@ -91,4 +91,3 @@ crupier_unittest : crupier.o persona.o crupier_unittest.o gtest_main.a
 
 jugador_unittest : jugador.o persona.o jugador_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
-

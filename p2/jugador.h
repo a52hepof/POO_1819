@@ -63,18 +63,37 @@ private:
 	int dinero_;
 	string codigo_;
 
-	struct apuesta{
+	struct Apuesta{
 		int tipo;
 		string valor;
 		int cantidad;
 
 	};
-	list <apuesta> apuestas_;
+	list <Apuesta> apuestas_;
 
 
 public:
 
-	inline int prueba(){return 1;};
+	Jugador(string DNI, string codigo, string nombre="", string apellidos="", int edad=0, string direccion="", string localidad="", string provincia="", string pais=""):Persona(DNI, nombre, apellidos, edad, direccion, localidad, provincia, pais){
+
+		codigo_=codigo;
+		dinero_=1000;
+		apuestas_.clear();
+
+	}
+
+	//Codigo
+
+	inline string getCodigo() const{return codigo_;};
+	inline void setCodigo(string codigo){codigo_=codigo;};
+
+	//Dinero
+
+	inline int getDinero() const{return dinero_;};
+	inline void setDinero(int dinero){dinero_=dinero;};
+
+	inline list <Apuesta> getApuestas(){return apuestas_;};
+	void setApuestas();
 
 
 
