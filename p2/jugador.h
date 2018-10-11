@@ -43,3 +43,45 @@ Un ejemplo de este fichero en el formato indicado sería:
 apuestas siguiendo el formato descrito.
 
 */
+
+#ifndef SYMBOL
+#define SYMBOL value
+
+
+#include "persona.h"
+
+
+#include <string>
+#include <list>
+using namespace std;
+
+
+class Jugador:public Persona{
+
+private:
+
+	int dinero_;
+	string codigo_;
+
+	struct apuesta{
+		int tipo;
+		string valor;
+		int cantidad;
+
+	};
+	list <apuesta> apuestas_;
+
+
+public:
+
+
+
+
+};
+
+
+
+
+#endif
+
+
