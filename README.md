@@ -12,13 +12,14 @@ Repositorio local en:
 
 ***
 
-Una vez en repositorio local, actualizar los cambios que estén en el remoto
+En el repositorio local, actualizar los cambios que estén en el remoto
 
     git pull
 
-Después de modificar el fichero en local
-
-    gitt add ./
+Después de modificar el fichero en local, hay que actualizar el repositorio remoto
+    
+    git status
+    git add ./
     git commit -m "Descripción commit realizado"
     git push -u origin master
 
