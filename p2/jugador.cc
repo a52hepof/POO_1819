@@ -17,7 +17,7 @@ void Jugador::setApuestas(){
 
 	char tipo[10], valor[10], cantidad[10];
 	Apuesta a;
-	j.apuestas_.clear();// para borrar elementos de la lista
+	apuestas_.clear();// para borrar elementos de la lista
 
 	string nombreFichero=getDNI() + ".txt";
 	ifstream entrada (nombreFichero.c_str());
@@ -29,7 +29,7 @@ void Jugador::setApuestas(){
 			a.tipo= atoi (tipo);
 			a.valor=valor;
 			a.cantidad=atoi(cantidad);
-			j.apuestas_.push_back(a);
+			apuestas_.push_back(a);
 		}
 
 	entrada.close();
@@ -39,11 +39,5 @@ void Jugador::setApuestas(){
 		cout<< "Fichero no esta abierto";
 		exit(-1);
 	}
-
-
-
-
-
-
 
 }

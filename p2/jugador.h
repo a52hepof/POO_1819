@@ -78,7 +78,7 @@ public:
 
 		codigo_=codigo;
 		dinero_=1000;
-		apuestas_.clear();
+		
 
 	}
 
@@ -92,7 +92,7 @@ public:
 	inline int getDinero() const{return dinero_;};
 	inline void setDinero(int dinero){dinero_=dinero;};
 
-	inline list <Apuesta> getApuestas(){return apuestas_;};
+	inline list <Apuesta> getApuestas() const{return apuestas_;};
 	void setApuestas();
 
 
