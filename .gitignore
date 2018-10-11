@@ -1,0 +1,6 @@
+//.gitnignore
+
+*.o
+soporte/
+googletest/
+strings/
