@@ -62,7 +62,7 @@ TEST(Jugador, setCodigoygetCodigo) {
 
 TEST(Jugador, setApuestasygetApuestasVacio) {
   Jugador j("33XX", "1");
-  list<Apuesta> l;
+  list <Apuesta> l;
   l= j.getApuestas();
   EXPECT_TRUE(l.empty());
 }
@@ -75,11 +75,11 @@ TEST(Jugador, setApuestasygetApuestas) {
   salida << 3 << "," << "par" << "," << 35<< "\n";
   salida << 4 << "," << "bajo" << "," << 45<< "\n";
   salida.close();
-  list<Apuesta> l;
+  list <Apuesta> l;
   j.setApuestas();
   l= j.getApuestas();
   EXPECT_EQ(4, l.size());
-  list<Apuesta>::iterator i;
+  list <Apuesta>::iterator i;
   i=l.begin();
   EXPECT_EQ(1, (*i).tipo);
   EXPECT_EQ("10", (*i).valor);

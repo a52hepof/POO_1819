@@ -55,6 +55,13 @@ apuestas siguiendo el formato descrito.
 #include <list>
 using namespace std;
 
+struct Apuesta{
+		int tipo;
+		string valor;
+		int cantidad;
+
+	};
+
 
 class Jugador:public Persona{
 
@@ -63,13 +70,11 @@ private:
 	int dinero_;
 	string codigo_;
 
-	struct Apuesta{
-		int tipo;
-		string valor;
-		int cantidad;
+	
 
-	};
+
 	list <Apuesta> apuestas_;
+	
 
 
 public:
