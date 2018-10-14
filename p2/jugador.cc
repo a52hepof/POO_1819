@@ -22,10 +22,10 @@ void Jugador::setApuestas(){
 	string nombreFichero=getDNI() + ".txt";
 	ifstream entrada (nombreFichero.c_str());
 	if (entrada.is_open()){
-		while (entrada.getline(tipo,256,',')){
+		while (entrada.getline(tipo,10,',')){
 
-			entrada.getline (valor,256,',');
-			entrada.getline(cantidad,256,'\n');
+			entrada.getline (valor,10,',');
+			entrada.getline(cantidad,10,'\n');
 			a.tipo= atoi (tipo);
 			a.valor=valor;
 			a.cantidad=atoi(cantidad);
@@ -41,3 +41,5 @@ void Jugador::setApuestas(){
 	}
 
 }
+
+
