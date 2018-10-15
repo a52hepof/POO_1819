@@ -93,6 +93,10 @@ public:
 
 	inline Crupier getCrupier() const{return crupier_;};
 	inline void setCrupier(Crupier c){crupier_=c;};
+	inline list<Jugador> getJugadores() const{return jugadores_;};
+
+	bool addJugador(Jugador j);
+
 
 	
 };

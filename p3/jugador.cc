@@ -12,14 +12,12 @@ using namespace std;
 
 void Jugador::setApuestas(){
 
-	Jugador j("33XX", "1");
-
-
+	//Jugador j("33XX", "1");//Si se añade en el getDNI() cambiar a j.getDNI()
 	char tipo[10], valor[10], cantidad[10];
 	Apuesta a;
 	apuestas_.clear();// para borrar elementos de la lista
 
-	string nombreFichero=j.getDNI() + ".txt";
+	string nombreFichero=getDNI() + ".txt";//j.getDNI()
 	ifstream entrada (nombreFichero.c_str());
 	if (entrada.is_open()){
 		while (entrada.getline(tipo,10,',')){
