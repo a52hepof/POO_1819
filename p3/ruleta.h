@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <time.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -65,8 +67,6 @@ public:
 	}//~ruleta();
 
 	inline int getBanca() const{return banca_;};
-	inline int getBola() const{return bola_;};
-
 	inline bool setBanca(int banca){
 
 		if (banca>0){
@@ -78,6 +78,8 @@ public:
 
 	};
 
+
+	inline int getBola() const{return bola_;};
 	inline bool setBola(int bola){
 
 		if (bola>=0&&bola<36){
@@ -88,6 +90,9 @@ public:
 		else return 0;
 
 	};
+
+	inline Crupier getCrupier() const{return crupier_;};
+	inline void setCrupier(Crupier c){crupier_=c;};
 
 	
 };

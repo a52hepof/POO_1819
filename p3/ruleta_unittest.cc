@@ -15,7 +15,7 @@
 #include "crupier.h"
 #include "gtest/gtest.h"
 
-TEST(Persona, ConstructorParametrosDefecto) {
+TEST(Ruleta, ConstructorParametrosDefecto) {
   Crupier c("33XX", "1");
   Ruleta r(c);
   
@@ -42,5 +42,14 @@ TEST(Persona, ConstructorParametrosDefecto) {
   
   EXPECT_TRUE(r.setBola(0));
   EXPECT_EQ(0, r.getBola());
+}
+
+TEST(Crupier, metodosCrupierSetGet){
+
+  Crupier c("30945741T", "2", "Fernando", "Herrera Poch");
+
+
+
+
 }
  

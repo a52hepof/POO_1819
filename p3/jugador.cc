@@ -19,7 +19,7 @@ void Jugador::setApuestas(){
 	Apuesta a;
 	apuestas_.clear();// para borrar elementos de la lista
 
-	string nombreFichero=getDNI() + ".txt";
+	string nombreFichero=j.getDNI() + ".txt";
 	ifstream entrada (nombreFichero.c_str());
 	if (entrada.is_open()){
 		while (entrada.getline(tipo,10,',')){
