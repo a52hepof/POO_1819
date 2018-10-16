@@ -14,11 +14,6 @@ using namespace std;
 
 
 /*
-8. El método int deleteJugador() recibe el DNI de un jugador y borra de la
-lista de jugadores el jugador con ese DNI. Debe devolver 1 si se ha
-borrado al jugador, -1 si la lista está vacía y -2 si el DNI no se ha
-encontrado en la lista de jugadores. No debe borrar el fichero con las
-apuestas de ese jugador.
 9. El método int deleteJugador() recibe un objeto de la clase Jugador y borra
 de la lista de jugadores el jugador con mismo DNI que el recibido. Debe
 devolver 1 si se ha borrado al jugador, -1 si la lista está vacía y -2 si el

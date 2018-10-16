@@ -102,3 +102,21 @@ TEST (Ruleta, ListaJugadores){
   EXPECT_EQ("Arturo", i->getNombre());
 
 }
+
+TEST (Ruleta, borrarJugadores){
+  
+  Crupier c("2T", "2");
+
+  Ruleta r(c);
+  Jugador j1("30945741T", "j1", "", "Poch", 19);
+  Jugador j2("44361343R", "j2");
+  EXPECT_EQ(-1, r.deleteJugador("30945741T"));//se comprueba que la lista esta vacia,ya que no se ha añadido ningun jugador
+  r.addJugador(j1);
+  r.addJugador(j2);
+  EXPECT_EQ(1, r.deleteJugador("30945741T"));//la lista no esta vacia, se elimina el que hay
+  EXPECT_EQ(-2, r.deleteJugador("30945741T"));//la lista no esta vacia, no se encuentra el jugador con el dni indicado
+  EXPECT_EQ(1, r.deleteJugador("44361343R"));//la lista no esta vacia, se elimina el que hay
+  EXPECT_EQ(-1, r.deleteJugador("30945741T"));//despues de eliminar el ultimo jugador la lista esta vacia
+
+
+}
