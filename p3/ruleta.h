@@ -90,6 +90,9 @@ public:
 
 	bool addJugador(Jugador j);
 
+	int deleteJugador(string dni_jugador);
+	int deleteJugador(Jugador j);
+
 
 	
 };

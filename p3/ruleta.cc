@@ -26,23 +26,49 @@ bool Ruleta::addJugador(Jugador j){
 	}
 	iFile.close();
 
-
-	//Para recorrera la lista y buscar elementos en ella
-	/*
-	list <Jugador>::iterator i;
-
-	for( i = jugadores_.begin(); i != jugadores_.end(); ++i ){
-  		if (i->getDNI()==j.getDNI()){
-			iFile.open(nameFile.c_str());
-		
-  	}
-  	else {
-
-  		return false;
-  	}
-
-	}
-	*/
 return 0;
 
 }
+
+int Ruleta::deleteJugador(string dni_jugador){
+
+	if (jugadores_.empty()){
+		return -1;
+	}
+	list <Jugador>::iterator i;
+
+	for( i = jugadores_.begin(); i != jugadores_.end(); ++i ){
+
+		if (i->getDNI()==dni_jugador){
+			jugadores_.erase(i);
+			return 1;
+		}
+		else{return -2;}
+	}
+
+	return 0;	
+}
+
+int Ruleta::deleteJugador(Jugador j){
+
+	if (jugadores_.empty()){
+		return -1;
+	}
+	list <Jugador>::iterator i;
+
+	for( i = jugadores_.begin(); i != jugadores_.end(); ++i ){
+
+		if (i->getDNI()==j.getDNI()){
+			jugadores_.erase(i);
+			return 1;
+		}
+		else{return -2;}
+	}
+	
+	return 0;
+  		
+}
+
+
+
+
