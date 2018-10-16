@@ -67,7 +67,7 @@ TEST(Jugador, setApuestasygetApuestasVacio) {
   EXPECT_TRUE(l.empty());
 }
 TEST(Jugador, setApuestasygetApuestas) {
-  Jugador j("30935741T", "1");
+  Jugador j("30945741T", "1");
   string nomfich=j.getDNI()+".txt";
   ofstream salida(nomfich.c_str());
   salida << 1 << "," << "10" << "," << 15<< "\n";

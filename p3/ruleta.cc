@@ -12,28 +12,37 @@ using namespace std;
 
 bool Ruleta::addJugador(Jugador j){
 
-	list <Jugador>::iterator i;
   	string nameFile=j.getDNI()+".txt";
   	ifstream iFile;
+  	jugadores_.push_back(j);
 
-	for( auto i = jugadores_.begin(); i != jugadores_.end(); ++i ){
-  		if (i->getDNI()==j.getDNI()){
-  			jugadores_.push_back(j);
-			iFile.open(nameFile.c_str());
-			if(!iFile.is_open()){
+  	if(!iFile.is_open()){
 				ofstream oFile (nameFile.c_str());
-				iFile.close();
+				oFile.close();
 				return true;	
-			}
-  			
-  		}
-  		else {
+	}
+	else{
+		return false;
+	}
+	iFile.close();
 
-  			return false;
-  		}
+
+	//Para recorrera la lista y buscar elementos en ella
+	/*
+	list <Jugador>::iterator i;
+
+	for( i = jugadores_.begin(); i != jugadores_.end(); ++i ){
+  		if (i->getDNI()==j.getDNI()){
+			iFile.open(nameFile.c_str());
+		
+  	}
+  	else {
+
+  		return false;
+  	}
 
 	}
-
-	return 0;
+	*/
+return 0;
 
 }

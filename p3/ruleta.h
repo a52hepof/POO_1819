@@ -14,8 +14,6 @@ using namespace std;
 
 
 /*
-
-6-7 test de funcionamiento
 8. El método int deleteJugador() recibe el DNI de un jugador y borra de la
 lista de jugadores el jugador con ese DNI. Debe devolver 1 si se ha
 borrado al jugador, -1 si la lista está vacía y -2 si el DNI no se ha
@@ -26,8 +24,7 @@ de la lista de jugadores el jugador con mismo DNI que el recibido. Debe
 devolver 1 si se ha borrado al jugador, -1 si la lista está vacía y -2 si el
 DNI no se ha encontrado en la lista de jugadores. No debe borrar el
 fichero con las apuestas de ese jugador.
-10.
-El método void escribeJugadores() escribe los datos de la lista de
+10.El método void escribeJugadores() escribe los datos de la lista de
 jugadores en un fichero texto denominado jugadores.txt. Cada vez que se
 escribe este fichero se borra todo su contenido anterior. El formato de
 este archivo debe ser:
