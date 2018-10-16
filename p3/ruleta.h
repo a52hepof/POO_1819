@@ -6,22 +6,16 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include <time.h>
+#include <ctime>
 #include <cstdlib>
+
 
 using namespace std;
 
 
 /*
-5. El observador getCrupier() y el modificador setCrupier().
-6. Observador, getJugadores(), que devuelve la lista de jugadores
-(jugadores_).
-7. El método bool addJugador() recibe un jugador como parámetro y añade
-el jugador al final de la lista de jugadores y crea un fichero tipo texto de
-apuestas vacío y devuelve true. El fichero debe llamarse DNI.txt, siendo
-DNI el DNI del jugador. Si el fichero ya existe, lo deja como estaba sin
-modificarlo ni borrarlo. Si ya existe en la lista un jugador con ese DNI el
-método no hace nada y devuelve false.
+
+6-7 test de funcionamiento
 8. El método int deleteJugador() recibe el DNI de un jugador y borra de la
 lista de jugadores el jugador con ese DNI. Debe devolver 1 si se ha
 borrado al jugador, -1 si la lista está vacía y -2 si el DNI no se ha
@@ -64,6 +58,8 @@ public:
 	Ruleta(Crupier const &c):crupier_(c){ //Iniciadores base. recibe como parámetro un objeto de tipo crupier
 		banca_=1000000;
 		bola_=-1;
+		srand(time(NULL));//inicializamos la semilla
+
 	}//~ruleta();
 
 	inline int getBanca() const{return banca_;};
