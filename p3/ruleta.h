@@ -13,30 +13,25 @@
 using namespace std;
 
 
-/*
-9. El método int deleteJugador() recibe un objeto de la clase Jugador y borra
-de la lista de jugadores el jugador con mismo DNI que el recibido. Debe
-devolver 1 si se ha borrado al jugador, -1 si la lista está vacía y -2 si el
-DNI no se ha encontrado en la lista de jugadores. No debe borrar el
-fichero con las apuestas de ese jugador.
-10.El método void escribeJugadores() escribe los datos de la lista de
-jugadores en un fichero texto denominado jugadores.txt. Cada vez que se
-escribe este fichero se borra todo su contenido anterior. El formato de
-este archivo debe ser:
-DNI,código,nombre,apellidos,dirección,localidad,provincia,país,dinero
-DNI,código,nombre,apellidos,dirección,localidad,provincia,país,dinero
-. . .
-Si alguno de los campos está vacío el fichero quedaría de la forma:
-DNI,código,nombre,apellidos,,,,,dinero
-DNI,código,,,,,,,dinero
-
-*/
 #ifndef ruleta_h
 #define ruleta_h
 
 class Ruleta{
-
-
+/*
+11.
+El método void leeJugadores() lee los datos de los jugadores del
+fichero jugadores.txt y los mete en la lista de jugadores. La lista de
+jugadores se borra antes de añadir los jugadores del fichero jugadores.txt
+12.
+El método void giraRuleta() simula el giro de la ruleta y la
+obtención de un número aleatorio entre 0 y 36.
+13.
+El método void getPremios() recorre la lista de jugadores y carga
+sus apuestas de los ficheros correspondientes. Actualiza el dinero de
+cada jugador con lo que ha ganado o ha perdido en cada apuesta, y
+actualiza el dinero de la banca con lo que ha ganado o ha perdido en
+cada apuesta.
+*/
 
 private:
 
@@ -44,10 +39,14 @@ private:
 	int bola_;//puede tomar valores entre 0 y 36
 	list <Jugador> jugadores_;
 	Crupier crupier_;
+	string color(int x);
+	string parimpar(int x);
 
 public:
-
+	//iniciador base con herencia, como en jugador y sin herencia, como es este caso. Se hace un constructor de copia
 	Ruleta(Crupier const &c):crupier_(c){ //Iniciadores base. recibe como parámetro un objeto de tipo crupier
+	//Ruleta(string a, string b):crupier(a,b) // es mejor enviar el objeto entero	
+
 		banca_=1000000;
 		bola_=-1;
 		srand(time(NULL));//inicializamos la semilla
@@ -87,6 +86,7 @@ public:
 
 	int deleteJugador(string dni_jugador);
 	int deleteJugador(Jugador j);
+	void escribeJugadores();
 
 
 	

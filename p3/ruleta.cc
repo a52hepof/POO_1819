@@ -6,6 +6,7 @@
 #include "crupier.h"
 #include <list>
 #include <fstream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -68,6 +69,21 @@ int Ruleta::deleteJugador(Jugador j){
 	return 0;
   		
 }
+
+
+void Ruleta::escribeJugadores(){
+
+	string nameFile="jugadores.txt";
+	ofstream oFile(nameFile.c_str());
+
+	list <Jugador>::iterator i;
+	
+	for ( i=jugadores_.begin() ; i !=jugadores_.end();  ++i){
+		oFile<< i->getDNI()<<","<<i->getCodigo()<<","<<i->getNombre()<<","<<i->getApellidos()<<","<<i->getDireccion()<<","<<i->getLocalidad()<<","<<i->getProvincia()<<","<<i->getPais()<<","<<i->getDinero()<<endl;
+	}
+	oFile.close();
+}
+
 
 
 

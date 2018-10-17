@@ -119,4 +119,29 @@ TEST (Ruleta, borrarJugadores){
   EXPECT_EQ(-1, r.deleteJugador("30945741T"));//despues de eliminar el ultimo jugador la lista esta vacia
 
 
+  Jugador j3("12345678T", "j3", "", "", 45);
+  Jugador j4("00000000R", "j4");
+  EXPECT_EQ(-1, r.deleteJugador(j3));//se comprueba que la lista esta vacia,ya que no se ha añadido ningun jugador
+  r.addJugador(j3);
+  r.addJugador(j4);
+
+  EXPECT_EQ(1, r.deleteJugador(j3));//la lista no esta vacia, se elimina el que hay
+  EXPECT_EQ(-2, r.deleteJugador(j3));//la lista no esta vacia, se elimina el que hay
+  EXPECT_EQ(1, r.deleteJugador(j4));//la lista no esta vacia, se elimina el que hay
+
+
+}
+
+TEST (Ruleta, escribeJugadores){
+  
+  Crupier c("2T", "2");
+  Ruleta r(c);
+  Jugador j1("30945741T", "j1", "", "Poch", 19);
+  Jugador j2("44361343R", "j2");
+  r.addJugador(j1);
+  r.addJugador(j2);
+  r.escribeJugadores();
+
+
+
 }
