@@ -142,6 +142,52 @@ TEST (Ruleta, escribeJugadores){
   r.addJugador(j2);
   r.escribeJugadores();
 
+}
 
+TEST (Ruleta, LeeFicheroListaJugadores){
+  
+  Crupier c("2T", "2");
+  Ruleta r(c);
+  
 
+  Jugador j5("30945741W", "j5", "", "Castillo", 32);
+  Jugador j6("44361343Z", "j6");
+ 
+  r.addJugador(j5);
+  r.addJugador(j6);
+  r.escribeJugadores();
+  
+  r.leeJugadores();
+
+  EXPECT_FALSE(r.getJugadores().empty());
+
+  EXPECT_EQ(2, r.getJugadores().size());
+  
+  list <Jugador> l;
+  l=r.getJugadores();
+
+  list<Jugador>:: iterator i;
+  i=l.begin();
+  EXPECT_EQ("30945741W", (*i).getDNI());
+  EXPECT_EQ("Castillo", (*i).getApellidos());
+  EXPECT_EQ(32, i->getEdad());
+  
+  i++;
+  EXPECT_EQ("44361343Z", (*i).getDNI());
+  EXPECT_EQ("", (*i).getApellidos());
+
+}
+
+TEST (Ruleta, GiroRuleta){
+
+  Crupier c("2T", "2");
+  Ruleta r(c);
+    
+  for (int i = 0; i < 10000000; ++i){
+    r.giraRuleta();
+    EXPECT_GE(r.getBola(),0 );
+    
+
+    EXPECT_LE(r.getBola(),36 );
+  }
 }

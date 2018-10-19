@@ -17,21 +17,7 @@ using namespace std;
 #define ruleta_h
 
 class Ruleta{
-/*
-11.
-El método void leeJugadores() lee los datos de los jugadores del
-fichero jugadores.txt y los mete en la lista de jugadores. La lista de
-jugadores se borra antes de añadir los jugadores del fichero jugadores.txt
-12.
-El método void giraRuleta() simula el giro de la ruleta y la
-obtención de un número aleatorio entre 0 y 36.
-13.
-El método void getPremios() recorre la lista de jugadores y carga
-sus apuestas de los ficheros correspondientes. Actualiza el dinero de
-cada jugador con lo que ha ganado o ha perdido en cada apuesta, y
-actualiza el dinero de la banca con lo que ha ganado o ha perdido en
-cada apuesta.
-*/
+
 
 private:
 
@@ -39,8 +25,8 @@ private:
 	int bola_;//puede tomar valores entre 0 y 36
 	list <Jugador> jugadores_;
 	Crupier crupier_;
-	string color(int x);
-	string parimpar(int x);
+
+
 
 public:
 	//iniciador base con herencia, como en jugador y sin herencia, como es este caso. Se hace un constructor de copia
@@ -50,6 +36,7 @@ public:
 		banca_=1000000;
 		bola_=-1;
 		srand(time(NULL));//inicializamos la semilla
+
 
 	}//~ruleta();
 
@@ -87,7 +74,9 @@ public:
 	int deleteJugador(string dni_jugador);
 	int deleteJugador(Jugador j);
 	void escribeJugadores();
-
+	void leeJugadores();
+	inline void giraRuleta() {bola_=1+rand()%36;};	
+	void getPremios(list <Jugador> j);
 
 	
 };
