@@ -138,7 +138,23 @@ cada apuesta.
 */
 void Ruleta::getPremios(list <Jugador> j){
 
-	j.clear();
+	//(j).clear();// lo hago para hacer un test pero no funciona. Habria que pasarlo 
+					//por referencia
+	Jugador gamer("11112", "2");
+
+	list <Jugador>::iterator i;
+	//crear fichero apuestas de un jugador
+	gamer.setApuestas();
+
+}
+
+
+
+void Ruleta::crearApuestas(string DNI, int tipo, string valor, int cantidad){
+
+
+
+
 
 }
 

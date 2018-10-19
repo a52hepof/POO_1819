@@ -183,11 +183,30 @@ TEST (Ruleta, GiroRuleta){
   Crupier c("2T", "2");
   Ruleta r(c);
     
-  for (int i = 0; i < 10000000; ++i){
+  for (int i = 0; i < 1000000; ++i){
     r.giraRuleta();
     EXPECT_GE(r.getBola(),0 );
-    
-
     EXPECT_LE(r.getBola(),36 );
   }
+}
+
+
+TEST (Ruleta, getPremios){
+
+  Crupier c("2T", "2");
+  Ruleta r(c);
+
+  Jugador j5("30945741W", "j5", "", "Castillo", 32);
+ // Jugador j6("44361343Z", "j6");
+ 
+  r.addJugador(j5);
+  //r.addJugador(j6);
+  EXPECT_EQ(1, r.getJugadores().size());
+  list <Jugador> l;
+  l=r.getJugadores();
+  l.clear();
+  r.getPremios(l);
+  //EXPECT_EQ(0, l.size());
+  EXPECT_TRUE( l.empty());
+
 }

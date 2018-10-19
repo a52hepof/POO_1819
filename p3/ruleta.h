@@ -77,6 +77,7 @@ public:
 	void leeJugadores();
 	inline void giraRuleta() {bola_=1+rand()%36;};	
 	void getPremios(list <Jugador> j);
+	void crearApuestas(string DNI, int tipo, string valor, int cantidad);
 
 	
 };
