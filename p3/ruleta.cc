@@ -82,6 +82,7 @@ void Ruleta::escribeJugadores(){
 	for ( i=jugadores_.begin() ; i !=jugadores_.end();  ++i){
 		oFile<< i->getDNI()<<","<<i->getCodigo()<<","<<i->getNombre()<<","<<i->getApellidos()<<","<<i->getEdad()<<","<<i->getDireccion()<<","<<i->getLocalidad()<<","<<i->getProvincia()<<","<<i->getPais()<<","<<i->getDinero()<<endl;
 	}
+	//oFile<<banca_;
 	oFile.close();
 }
 
@@ -174,10 +175,11 @@ void Ruleta::crearApuestas(string DNI, int tipo, string valor, int cantidad){
 void Ruleta::getPremios(){
 
 	list <Jugador>::iterator itJ;
-	Jugador j("33XX", "");
+	Jugador j("", "");
 
 	list <Apuesta>::iterator itA;
 	list <Apuesta> a;
+	
 	Bola b;
 	
 	//(j.getApuestas()).clear();
@@ -191,7 +193,6 @@ void Ruleta::getPremios(){
 		//int i=1;
 		for (itA = a.begin(); itA!=a.end(); ++itA){
 			//giraRuleta();
-
 
 			switch (itA->tipo){
 

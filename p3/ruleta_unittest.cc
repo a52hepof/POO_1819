@@ -255,13 +255,16 @@ TEST (Ruleta, getPremios){
 //Test Final GetPremios
 
   r.limpiarListaJugadores();
+  EXPECT_EQ(0, (r.getJugadores()).size());
   r.setBanca(1000000);
 
   Jugador j100("30945741T", "j100");
-  Jugador j101("44361343R", "j101");
-  j100.setDinero(5000);
-  j101.setDinero(5000);
   r.addJugador(j100);
+  EXPECT_EQ(1, (r.getJugadores()).size());
+
+  Jugador j101("44361343R", "j101");
+  //j100.setDinero(5000);
+  //j101.setDinero(5000);
   r.addJugador(j101);
   
 
@@ -272,13 +275,28 @@ TEST (Ruleta, getPremios){
     
   r.setBola(4);
 
-  r.crearApuestas("30945741T", 1, "4", 1000);
-  r.crearApuestas("44361343R", 2, "negro", 1000);
+  r.crearApuestas("30945741T", 1, "4", 10);
+  r.crearApuestas("44361343R", 2, "negro", 10);
   r.getPremios();
-  EXPECT_EQ(j100.getDinero(), 40000);
-  EXPECT_EQ(j101.getDinero(), 6000);
-  EXPECT_EQ(r.getBanca(), 964000);
+  Jugador j102("00000000Z", "j102");
+  r.addJugador(j102);
+  EXPECT_EQ(3, (r.getJugadores()).size());
 
+  list<Jugador>::iterator it;
+  list <Jugador> lAux;// si no se hace asi da problemas para recorrer la lista
+  lAux=r.getJugadores();
+  it=lAux.begin(); //it=r.getJugadores().begin// asi da problemas para recorrer la lista
+  
+  EXPECT_EQ((*it).getDinero(),1350);
+  EXPECT_EQ(it->getDNI(),"30945741T");
+  
+  (it)++;
+  //it=(r.getJugadores()).end();
+  //it--;
+  EXPECT_EQ((*it).getDinero(),1010);
+  EXPECT_EQ(it->getCodigo(), "j101");
+  EXPECT_EQ(r.getBanca(),999640);
+  r.escribeJugadores();
 
 
   
