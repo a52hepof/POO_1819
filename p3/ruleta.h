@@ -75,8 +75,11 @@ public:
 	int deleteJugador(Jugador j);
 	void escribeJugadores();
 	void leeJugadores();
-	inline void giraRuleta() {bola_=1+rand()%36;};	
-	void getPremios(list <Jugador> j);
+	inline void giraRuleta() {bola_=rand()%37;};	
+	void limpiarLista(list <Jugador> *j);// se crea para comprender el paso por referencia de listas
+	inline void limpiarListaJugadores(){jugadores_.clear();};
+
+	void getPremios();
 	void crearApuestas(string DNI, int tipo, string valor, int cantidad);
 
 	

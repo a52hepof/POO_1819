@@ -48,7 +48,7 @@ public:
 
 	//Dinero
 
-	inline int getDinero() const{return dinero_;};
+	inline int getDinero() {return dinero_;};
 	inline void setDinero(int dinero){dinero_=dinero;};
 
 	inline list <Apuesta> getApuestas() const{return apuestas_;};

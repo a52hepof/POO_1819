@@ -4,6 +4,7 @@
 #include "jugador.h"
 #include "persona.h"
 #include "crupier.h"
+#include "bola.h"
 #include <list>
 #include <fstream>
 #include <iostream>
@@ -130,33 +131,230 @@ void Ruleta::leeJugadores(){
 	iFile.close();
 }
 
-/*El método void getPremios() recorre la lista de jugadores y carga
-sus apuestas de los ficheros correspondientes. Actualiza el dinero de
-cada jugador con lo que ha ganado o ha perdido en cada apuesta, y
-actualiza el dinero de la banca con lo que ha ganado o ha perdido en
-cada apuesta.
-*/
-void Ruleta::getPremios(list <Jugador> j){
+void Ruleta::limpiarLista(list <Jugador> *j){
 
-	//(j).clear();// lo hago para hacer un test pero no funciona. Habria que pasarlo 
-					//por referencia
-	Jugador gamer("11112", "2");
 
-	list <Jugador>::iterator i;
-	//crear fichero apuestas de un jugador
-	gamer.setApuestas();
+	j->clear();//
 
 }
-
 
 
 void Ruleta::crearApuestas(string DNI, int tipo, string valor, int cantidad){
 
+	string nameFile=DNI+".txt";
+	ifstream iFile;
+	iFile.open(nameFile);
 
+	if (!iFile){
+		ofstream oFile(nameFile.c_str());
 
+	}
+	iFile.close();
 
+	ofstream oFile(nameFile, ios::app);
+
+	Jugador j("", "");
+	list <Apuesta> apuestaAux;
+	Apuesta aux;
+	aux.tipo=tipo;
+	aux.valor=valor;
+	aux.cantidad=cantidad;
+	apuestaAux.push_back(aux);
+	
+
+	list <Apuesta>::iterator i;
+	
+	for ( i=apuestaAux.begin() ; i !=apuestaAux.end();  ++i){
+		oFile<< i->tipo<<","<<i->valor<<","<<i->cantidad<<endl;
+	}
+	oFile.close();
 
 }
+
+void Ruleta::getPremios(){
+
+	list <Jugador>::iterator itJ;
+	Jugador j("33XX", "");
+
+	list <Apuesta>::iterator itA;
+	list <Apuesta> a;
+	Bola b;
+	
+	//(j.getApuestas()).clear();
+	//Apuesta a;
+
+	for (itJ=jugadores_.begin(); itJ!=jugadores_.end(); itJ++){
+
+		itJ->setApuestas();
+		a=itJ->getApuestas();
+		cout<<itJ->getDNI()<<"*********"<<endl;
+		//int i=1;
+		for (itA = a.begin(); itA!=a.end(); ++itA){
+			//giraRuleta();
+
+
+			switch (itA->tipo){
+
+				case 1:{
+
+					int valorA=atoi(itA->valor.c_str());// c_str para que haga la conversi´on bien a integer
+					cout<<"bola ruleta: "<<bola_<<endl;
+					cout<<"valor jugado: "<<valorA<<endl;
+					if (atoi(itA->valor.c_str())==bola_){
+						
+						//habria que verificar que la cantidad apostada es siempre menor que el dinero que se tiene
+						int dinero=itJ->getDinero();
+						dinero=(itJ->getDinero()+(itA->cantidad)*35);
+						itJ->setDinero(dinero);
+						cout<<dinero<<"---"<<(itJ->getDinero())<<endl;
+						//itJ->setDinero((itJ->getDinero()+(itA->cantidad)*35));
+						banca_-=(itA->cantidad)*35;
+					}
+
+					else{
+						itJ->setDinero((itJ->getDinero()-(itA->cantidad)));
+						banca_+=(itA->cantidad);
+					}
+				}break;
+
+				case 2:{
+					string colorBola;
+					if (b.Color(bola_)==true){
+
+						colorBola="rojo";
+					}
+					else{colorBola="negro";}
+					cout<<"bola ruleta: "<<bola_<<"--color bola ruleta: "<<colorBola<<endl;
+					cout<<"color jugado: "<<itA->valor.c_str()<<endl;
+
+					if(colorBola==itA->valor.c_str()&&bola_!=0){
+						itJ->setDinero((itJ->getDinero()+(itA->cantidad)));
+						banca_-=(itA->cantidad);
+					}
+					else{
+						(*itJ).setDinero((itJ->getDinero()-(itA->cantidad)));
+						banca_+=(itA->cantidad);
+
+					}
+
+
+				}break;
+
+				case 3:{
+					string paridadBola;
+					if (b.esPar(bola_)==true){
+
+						paridadBola="par";
+					}
+					else{paridadBola="impar";}
+					cout<<"bola ruleta: "<<bola_<<"--paridad bola ruleta: "<<paridadBola<<endl;
+					cout<<"paridad jugada: "<<itA->valor.c_str()<<endl;
+
+					if(paridadBola==itA->valor.c_str()&&bola_!=0){
+						itJ->setDinero((itJ->getDinero()+(itA->cantidad)));
+						banca_-=(itA->cantidad);
+					}
+					else{
+						itJ->setDinero((itJ->getDinero()-(itA->cantidad)));
+						banca_+=(itA->cantidad);
+					}
+
+				}break;
+
+				case 4:{
+					string altoBajoBola;
+					if (b.Alto(bola_)==true){
+						altoBajoBola="alto";
+					}
+					else{altoBajoBola="bajo";}
+					//cout<<"bola ruleta: "<<bola_<<"--altoBajo bola ruleta: "<<altoBajoBola<<endl;
+					//cout<<"paridad jugada: "<<itA->valor.c_str()<<endl;
+
+					if(altoBajoBola==itA->valor.c_str()&&bola_!=0){
+						itJ->setDinero((itJ->getDinero()+(itA->cantidad)));
+						banca_-=(itA->cantidad);
+					}
+					else{
+						itJ->setDinero((itJ->getDinero()-(itA->cantidad)));
+						banca_+=(itA->cantidad);
+
+					}
+
+
+				}break;
+			}
+
+		}
+	cout<<"dinero jugador "<< itJ->getDNI()<<":"<<itJ->getDinero()<<endl;
+	cout<<"dinero banca "<<banca_<<endl;	
+	}	
+	
+
+
+
+		/*
+
+		
+			cout<<"Apuesta: "<<i<<endl;
+			cout<<itA->tipo<<endl;
+			cout<<itA->valor<<endl;
+			cout<<itA->cantidad<<endl;
+			i++;
+
+			//giraRuleta();
+			int valorA=atoi(itA->valor.c_str());// c_str para que haga la conversi´on bien a integer
+			cout<<"bola ruleta: "<<bola_<<endl;
+			cout<<"valor jugado: "<<valorA<<endl;
+
+			//bola
+
+			if(valorA==bola_){
+				cout<<"Acierto";
+
+			}
+
+			//par
+
+			if(b.esPar(bola_)==1){
+				cout<<"par"<<endl;
+			}
+			else{
+				cout<<"impar"<<endl;
+
+			}
+
+			//rojo
+
+			if(b.Color(bola_)==1){
+				cout<<"rojos"<<endl;
+			}
+			else{
+				cout<<"negros"<<endl;
+
+			}
+			//alto
+
+
+			if(b.Alto(bola_)==0){
+				cout<<"Alto"<<endl;
+			}
+			else{
+				cout<<"Bajo"<<endl;
+
+			}
+		*/
+
+}		
+
+		
+	
+
+
+
+
+
+
+
 
 
 

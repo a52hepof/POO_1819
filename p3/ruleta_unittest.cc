@@ -182,12 +182,25 @@ TEST (Ruleta, GiroRuleta){
 
   Crupier c("2T", "2");
   Ruleta r(c);
-    
+  int num0=0;
+  int num36=0;
   for (int i = 0; i < 1000000; ++i){
     r.giraRuleta();
+    if (r.getBola()==0){
+      num0++;
+    }
+    if (r.getBola()==36){
+      num36++;
+    }
+    
+    
     EXPECT_GE(r.getBola(),0 );
     EXPECT_LE(r.getBola(),36 );
   }
+
+  EXPECT_GE(num0,1);
+  EXPECT_GE(num36,1);
+
 }
 
 
@@ -195,18 +208,85 @@ TEST (Ruleta, getPremios){
 
   Crupier c("2T", "2");
   Ruleta r(c);
+  Jugador j1("11XX", "j1");
 
   Jugador j5("30945741W", "j5", "", "Castillo", 32);
- // Jugador j6("44361343Z", "j6");
- 
+  Jugador j6("44361343Z", "j6");
+  r.addJugador(j1);
   r.addJugador(j5);
-  //r.addJugador(j6);
-  EXPECT_EQ(1, r.getJugadores().size());
+  r.addJugador(j6);
+  EXPECT_EQ(3, r.getJugadores().size());
+  
   list <Jugador> l;
-  l=r.getJugadores();
-  l.clear();
-  r.getPremios(l);
-  //EXPECT_EQ(0, l.size());
+  l=(r.getJugadores());
+  r.limpiarLista(&l); //pruebas paso por referencia
+  r.limpiarListaJugadores();
+  EXPECT_EQ(0, (r.getJugadores()).size());
+  EXPECT_EQ(0, l.size());
+  
+  EXPECT_TRUE( (r.getJugadores()).empty());
   EXPECT_TRUE( l.empty());
+ 
+ /* 
+  Jugador j3("123XX", "j3");
+  Jugador j10("lkdsf", "j10");
+  
+  r.addJugador(j3);
+  r.addJugador(j10);
+  
+  EXPECT_EQ(2, (r.getJugadores()).size());
+  EXPECT_FALSE( (r.getJugadores()).empty());
+
+  r.escribeJugadores();
+  r.crearApuestas("123XX", 1, "34", 1200);
+  r.crearApuestas("123XX", 3, "par", 5000);
+  
+  r.crearApuestas("123XX", 2, "negro", 10);
+
+  r.crearApuestas("lkdsf", 2, "rojo", 100);
+  r.crearApuestas("lkdsf", 4, "alto", 1000);
+
+  for (int i = 0; i < 1; ++i){
+    r.giraRuleta();
+    r.getPremios();
+  
+  }
+*/
+//Test Final GetPremios
+
+  r.limpiarListaJugadores();
+  r.setBanca(1000000);
+
+  Jugador j100("30945741T", "j100");
+  Jugador j101("44361343R", "j101");
+  j100.setDinero(5000);
+  j101.setDinero(5000);
+  r.addJugador(j100);
+  r.addJugador(j101);
+  
+
+  EXPECT_EQ(2, (r.getJugadores()).size());
+  EXPECT_FALSE( (r.getJugadores()).empty());
+
+  r.escribeJugadores();
+    
+  r.setBola(4);
+
+  r.crearApuestas("30945741T", 1, "4", 1000);
+  r.crearApuestas("44361343R", 2, "negro", 1000);
+  r.getPremios();
+  EXPECT_EQ(j100.getDinero(), 40000);
+  EXPECT_EQ(j101.getDinero(), 6000);
+  EXPECT_EQ(r.getBanca(), 964000);
+
+
+
+  
+
+
+
+
+
+
 
 }
