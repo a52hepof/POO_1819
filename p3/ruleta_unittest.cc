@@ -209,7 +209,7 @@ TEST (Ruleta, getPremios){
   Crupier c("2T", "2");
   Ruleta r(c);
   Jugador j1("11XX", "j1");
-
+  /*
   Jugador j5("30945741W", "j5", "", "Castillo", 32);
   Jugador j6("44361343Z", "j6");
   r.addJugador(j1);
@@ -227,7 +227,7 @@ TEST (Ruleta, getPremios){
   EXPECT_TRUE( (r.getJugadores()).empty());
   EXPECT_TRUE( l.empty());
  
- /* 
+ 
   Jugador j3("123XX", "j3");
   Jugador j10("lkdsf", "j10");
   
@@ -296,6 +296,9 @@ TEST (Ruleta, getPremios){
   EXPECT_EQ((*it).getDinero(),1010);
   EXPECT_EQ(it->getCodigo(), "j101");
   EXPECT_EQ(r.getBanca(),999640);
+  it++;
+  EXPECT_EQ(it->getCodigo(), "j102");
+
   r.escribeJugadores();
 
 
