@@ -1,13 +1,11 @@
 //ruleta.h
 
 #include "crupier.h"
-#include "persona.h"
-#include "jugador.h"
+#include "../p2/jugador.h"
 #include <iostream>
 #include <string>
 #include <list>
 #include <ctime>
-#include <cstdlib>
 
 
 using namespace std;
@@ -18,15 +16,12 @@ using namespace std;
 
 class Ruleta{
 
-
 private:
 
 	int banca_;//dinero que mantiene la banca
 	int bola_;//puede tomar valores entre 0 y 36
 	list <Jugador> jugadores_;
 	Crupier crupier_;
-
-
 
 public:
 	//iniciador base con herencia, como en jugador y sin herencia, como es este caso. Se hace un constructor de copia
@@ -37,8 +32,9 @@ public:
 		bola_=-1;
 		srand(time(NULL));//inicializamos la semilla
 
+	}
 
-	}//~ruleta();
+	//~ruleta();
 
 	inline int getBanca() const{return banca_;};
 	inline bool setBanca(int banca){
@@ -52,7 +48,6 @@ public:
 
 	};
 
-
 	inline int getBola() const{return bola_;};
 	inline bool setBola(int bola){
 
@@ -63,14 +58,13 @@ public:
 		}
 		else return 0;
 
+
 	};
 
 	inline Crupier getCrupier() const{return crupier_;};
 	inline void setCrupier(Crupier c){crupier_=c;};
 	inline list<Jugador> getJugadores() const{return jugadores_;};
-
 	bool addJugador(Jugador j);
-
 	int deleteJugador(string dni_jugador);
 	int deleteJugador(Jugador j);
 	void escribeJugadores();
@@ -78,10 +72,8 @@ public:
 	inline void giraRuleta() {bola_=rand()%37;};	
 	void limpiarLista(list <Jugador> *j);// se crea para comprender el paso por referencia de listas
 	inline void limpiarListaJugadores(){jugadores_.clear();};
-
 	void getPremios();
 	void crearApuestas(string DNI, int tipo, string valor, int cantidad);
-
 	
 };
 

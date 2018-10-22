@@ -1,4 +1,4 @@
-// dados_unittest.cc: Juan A. Romero
+// jugador_unittest.cc: Juan A. Romero
 // A sample program demonstrating using Google C++ testing framework.
 //
 // This sample shows how to write a more complex unit test for a class
@@ -9,305 +9,209 @@
 // your tests organized.  You may also throw in additional tests as
 // needed.
 
-#include "persona.h"
-#include "ruleta.h"
-#include "jugador.h"
-#include "crupier.h"
-#include "gtest/gtest.h"
-#include <list>
 #include <fstream>
-#include <iostream>
+#include <list>
+#include "crupier.h"
+#include "ruleta.h"
+#include "gtest/gtest.h"
 
 using namespace std;
 
-TEST(Ruleta, ConstructorParametrosDefecto) {
-  Crupier c("33XX", "1");
+TEST(Ruleta, Constructor) {
+  Crupier c("33XX","codigo1");
   Ruleta r(c);
   
-  EXPECT_EQ("33XX", c.getDNI());
-  EXPECT_EQ("", c.getNombre());
-  EXPECT_EQ("", c.getApellidos());
-  EXPECT_EQ("", c.getDireccion());
-  EXPECT_EQ("", c.getLocalidad());
-  EXPECT_EQ("", c.getProvincia());
-  EXPECT_EQ("", c.getPais());
-  EXPECT_EQ(0, c.getEdad());
-  EXPECT_EQ(", ", c.getApellidosyNombre());
-
+  EXPECT_EQ("33XX", r.getCrupier().getDNI());
+  EXPECT_EQ("codigo1", r.getCrupier().getCodigo());
+  EXPECT_EQ(-1, r.getBola());
   EXPECT_EQ(1000000, r.getBanca());
-  EXPECT_EQ(-1, r.getBola());
-
-  r.setBanca(2500000);
-  EXPECT_EQ(2500000, r.getBanca());
-  EXPECT_FALSE(r.setBanca(-2000));
-  EXPECT_TRUE(r.setBanca(2));
-
-  EXPECT_FALSE(r.setBola(37));
-  EXPECT_EQ(-1, r.getBola());
-  
-  EXPECT_TRUE(r.setBola(0));
-  EXPECT_EQ(0, r.getBola());
-}
-
-TEST(Ruleta, metodosCrupierSetGet){
-
-  Crupier c("2T", "2");
-  Crupier c1("30945741T", "2", "Fernando", "Herrera Poch");
-  Crupier c2("44361343R", "3", "Rosario", "Ruiz Olivares");
-
-  Ruleta r(c);
-  
-  r.setCrupier(c);
-  EXPECT_EQ("2T", (r.getCrupier()).getDNI());
-
-  r.setCrupier(c2);
-  EXPECT_EQ("44361343R", (r.getCrupier()).getDNI());
-  EXPECT_EQ("Rosario", (r.getCrupier()).getNombre());
-
-  r.setCrupier(c1);
-  EXPECT_EQ("30945741T", (r.getCrupier()).getDNI());
-  EXPECT_EQ("Herrera Poch", (r.getCrupier()).getApellidos());
-}
-
-TEST (Ruleta, ListaJugadores){
-  
-  Crupier c("2T", "2");
-  Ruleta r(c);
-
-  
   EXPECT_TRUE(r.getJugadores().empty());
+}
 
-  Jugador j1("30945741T", "j1", "", "Poch", 19);
-  Jugador j2("44361343R", "j2");
-  Jugador j3("12345678A", "j3", "Arturo");
+TEST(Ruleta, setBola) {
+  Crupier c("33XX","codigo1");
+  Ruleta r(c);
+  r.setBola(25);
+  EXPECT_EQ(25, r.getBola());
+  r.setBola(77);
+  EXPECT_EQ(25, r.getBola());
+}
+
+TEST(Ruleta, setBanca) {
+  Crupier c("33XX","codigo1");
+  Ruleta r(c);
+  r.setBanca(2000000);
+  EXPECT_EQ(2000000, r.getBanca());
+  r.setBanca(-5);
+  EXPECT_EQ(2000000, r.getBanca());
+}
+
+TEST(Ruleta, getCrupier) {
+  Crupier c("33XX","codigo1");
+  Crupier d("66XX","codigo2");
+  Ruleta r(c);
+  d=r.getCrupier();
+  EXPECT_EQ("33XX", d.getDNI());
+  EXPECT_EQ("codigo1", d.getCodigo());
+}
+
+TEST(Ruleta, addJugador) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
   r.addJugador(j1);
   r.addJugador(j2);
-  r.addJugador(j3);
-
-  EXPECT_EQ(3, r.getJugadores().size());
   EXPECT_FALSE(r.getJugadores().empty());
-  list <Jugador> l;
-  l=r.getJugadores();
-
-  list<Jugador>:: iterator i;
-  i=l.begin();
-  EXPECT_EQ("30945741T", (*i).getDNI());
-  EXPECT_EQ("Poch", (*i).getApellidos());
-  EXPECT_EQ(19, i->getEdad());
-  
-  i++;
-  EXPECT_EQ("44361343R", (*i).getDNI());
-  EXPECT_EQ("", (*i).getApellidos());
-  i++;
-  EXPECT_EQ("Arturo", i->getNombre());
-
-}
-
-TEST (Ruleta, borrarJugadores){
-  
-  Crupier c("2T", "2");
-
-  Ruleta r(c);
-  Jugador j1("30945741T", "j1", "", "Poch", 19);
-  Jugador j2("44361343R", "j2");
-  EXPECT_EQ(-1, r.deleteJugador("30945741T"));//se comprueba que la lista esta vacia,ya que no se ha añadido ningun jugador
-  r.addJugador(j1);
-  r.addJugador(j2);
-  EXPECT_EQ(1, r.deleteJugador("30945741T"));//la lista no esta vacia, se elimina el que hay
-  EXPECT_EQ(-2, r.deleteJugador("30945741T"));//la lista no esta vacia, no se encuentra el jugador con el dni indicado
-  EXPECT_EQ(1, r.deleteJugador("44361343R"));//la lista no esta vacia, se elimina el que hay
-  EXPECT_EQ(-1, r.deleteJugador("30945741T"));//despues de eliminar el ultimo jugador la lista esta vacia
-
-
-  Jugador j3("12345678T", "j3", "", "", 45);
-  Jugador j4("00000000R", "j4");
-  EXPECT_EQ(-1, r.deleteJugador(j3));//se comprueba que la lista esta vacia,ya que no se ha añadido ningun jugador
-  r.addJugador(j3);
-  r.addJugador(j4);
-
-  EXPECT_EQ(1, r.deleteJugador(j3));//la lista no esta vacia, se elimina el que hay
-  EXPECT_EQ(-2, r.deleteJugador(j3));//la lista no esta vacia, se elimina el que hay
-  EXPECT_EQ(1, r.deleteJugador(j4));//la lista no esta vacia, se elimina el que hay
-
-
-}
-
-TEST (Ruleta, escribeJugadores){
-  
-  Crupier c("2T", "2");
-  Ruleta r(c);
-  Jugador j1("30945741T", "j1", "", "Poch", 19);
-  Jugador j2("44361343R", "j2");
-  r.addJugador(j1);
-  r.addJugador(j2);
-  r.escribeJugadores();
-
-}
-
-TEST (Ruleta, LeeFicheroListaJugadores){
-  
-  Crupier c("2T", "2");
-  Ruleta r(c);
-  
-
-  Jugador j5("30945741W", "j5", "", "Castillo", 32);
-  Jugador j6("44361343Z", "j6");
- 
-  r.addJugador(j5);
-  r.addJugador(j6);
-  r.escribeJugadores();
-  
-  r.leeJugadores();
-
-  EXPECT_FALSE(r.getJugadores().empty());
-
   EXPECT_EQ(2, r.getJugadores().size());
-  
-  list <Jugador> l;
-  l=r.getJugadores();
-
-  list<Jugador>:: iterator i;
-  i=l.begin();
-  EXPECT_EQ("30945741W", (*i).getDNI());
-  EXPECT_EQ("Castillo", (*i).getApellidos());
-  EXPECT_EQ(32, i->getEdad());
-  
-  i++;
-  EXPECT_EQ("44361343Z", (*i).getDNI());
-  EXPECT_EQ("", (*i).getApellidos());
-
+  EXPECT_EQ("44XX", r.getJugadores().begin()->getDNI());
+  EXPECT_EQ("jugador1", r.getJugadores().begin()->getCodigo());
+  EXPECT_EQ("55XX", (--r.getJugadores().end())->getDNI());
+  EXPECT_EQ("jugador2", (--r.getJugadores().end())->getCodigo());
 }
 
-TEST (Ruleta, GiroRuleta){
-
-  Crupier c("2T", "2");
+TEST(Ruleta, addJugadorFicheros) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
   Ruleta r(c);
-  int num0=0;
-  int num36=0;
-  for (int i = 0; i < 1000000; ++i){
-    r.giraRuleta();
-    if (r.getBola()==0){
-      num0++;
-    }
-    if (r.getBola()==36){
-      num36++;
-    }
-    
-    
-    EXPECT_GE(r.getBola(),0 );
-    EXPECT_LE(r.getBola(),36 );
-  }
-
-  EXPECT_GE(num0,1);
-  EXPECT_GE(num36,1);
-
-}
-
-
-TEST (Ruleta, getPremios){
-
-  Crupier c("2T", "2");
-  Ruleta r(c);
-  Jugador j1("11XX", "j1");
-  /*
-  Jugador j5("30945741W", "j5", "", "Castillo", 32);
-  Jugador j6("44361343Z", "j6");
   r.addJugador(j1);
-  r.addJugador(j5);
-  r.addJugador(j6);
-  EXPECT_EQ(3, r.getJugadores().size());
-  
-  list <Jugador> l;
-  l=(r.getJugadores());
-  r.limpiarLista(&l); //pruebas paso por referencia
-  r.limpiarListaJugadores();
-  EXPECT_EQ(0, (r.getJugadores()).size());
-  EXPECT_EQ(0, l.size());
-  
-  EXPECT_TRUE( (r.getJugadores()).empty());
-  EXPECT_TRUE( l.empty());
- 
- 
-  Jugador j3("123XX", "j3");
-  Jugador j10("lkdsf", "j10");
-  
-  r.addJugador(j3);
-  r.addJugador(j10);
-  
-  EXPECT_EQ(2, (r.getJugadores()).size());
-  EXPECT_FALSE( (r.getJugadores()).empty());
-
-  r.escribeJugadores();
-  r.crearApuestas("123XX", 1, "34", 1200);
-  r.crearApuestas("123XX", 3, "par", 5000);
-  
-  r.crearApuestas("123XX", 2, "negro", 10);
-
-  r.crearApuestas("lkdsf", 2, "rojo", 100);
-  r.crearApuestas("lkdsf", 4, "alto", 1000);
-
-  for (int i = 0; i < 1; ++i){
-    r.giraRuleta();
-    r.getPremios();
-  
-  }
-*/
-//Test Final GetPremios
-
-  r.limpiarListaJugadores();
-  EXPECT_EQ(0, (r.getJugadores()).size());
-  r.setBanca(1000000);
-
-  Jugador j100("30945741T", "j100");
-  r.addJugador(j100);
-  EXPECT_EQ(1, (r.getJugadores()).size());
-
-  Jugador j101("44361343R", "j101");
-  //j100.setDinero(5000);
-  //j101.setDinero(5000);
-  r.addJugador(j101);
-  
-
-  EXPECT_EQ(2, (r.getJugadores()).size());
-  EXPECT_FALSE( (r.getJugadores()).empty());
-
-  r.escribeJugadores();
-    
-  r.setBola(4);
-
-  r.crearApuestas("30945741T", 1, "4", 10);
-  r.crearApuestas("44361343R", 2, "negro", 10);
-  r.getPremios();
-  Jugador j102("00000000Z", "j102");
-  r.addJugador(j102);
-  EXPECT_EQ(3, (r.getJugadores()).size());
-
-  list<Jugador>::iterator it;
-  list <Jugador> lAux;// si no se hace asi da problemas para recorrer la lista
-  lAux=r.getJugadores();
-  it=lAux.begin(); //it=r.getJugadores().begin// asi da problemas para recorrer la lista
-  
-  EXPECT_EQ((*it).getDinero(),1350);
-  EXPECT_EQ(it->getDNI(),"30945741T");
-  
-  (it)++;
-  //it=(r.getJugadores()).end();
-  //it--;
-  EXPECT_EQ((*it).getDinero(),1010);
-  EXPECT_EQ(it->getCodigo(), "j101");
-  EXPECT_EQ(r.getBanca(),999640);
-  it++;
-  EXPECT_EQ(it->getCodigo(), "j102");
-
-  r.escribeJugadores();
-
-
-  
-
-
-
-
-
-
-
+  r.addJugador(j2);
+  string nomfich = r.getJugadores().begin()->getDNI() + ".txt";
+  fstream salida(nomfich.c_str(), ios::in);
+  EXPECT_TRUE(salida);
+  salida.close();
+  nomfich = (--r.getJugadores().end())->getDNI() + ".txt";
+  salida.open(nomfich.c_str(), ios::in);
+  EXPECT_TRUE(salida);
+  salida.close();
 }
+
+TEST(Ruleta, deleteJugador) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
+  r.addJugador(j1);
+  r.addJugador(j2);
+  EXPECT_EQ(1,r.deleteJugador(j1));
+  EXPECT_EQ(1, r.getJugadores().size());
+  EXPECT_EQ("55XX", r.getJugadores().begin()->getDNI());
+  EXPECT_EQ("jugador2", r.getJugadores().begin()->getCodigo());
+  EXPECT_EQ(1, r.getJugadores().size());
+  j1.setDNI("88XX");
+  EXPECT_EQ(-2,r.deleteJugador(j1));
+  EXPECT_EQ(1,r.deleteJugador(j2));
+  EXPECT_EQ(-1,r.deleteJugador(j1));
+  EXPECT_EQ(0, r.getJugadores().size());
+}
+
+TEST(Ruleta, deleteJugadorDNI) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
+  r.addJugador(j1);
+  r.addJugador(j2);
+  EXPECT_EQ(1,r.deleteJugador("44XX"));
+  EXPECT_EQ(1, r.getJugadores().size());
+  EXPECT_EQ("55XX", r.getJugadores().begin()->getDNI());
+  EXPECT_EQ("jugador2", r.getJugadores().begin()->getCodigo());
+  EXPECT_EQ(1, r.getJugadores().size());
+  EXPECT_EQ(-2,r.deleteJugador("88XX"));
+  EXPECT_EQ(1,r.deleteJugador("55XX"));
+  EXPECT_EQ(-1,r.deleteJugador("55XX"));
+  EXPECT_EQ(0, r.getJugadores().size());
+}
+
+TEST(Ruleta, escribeLeeJugadores) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
+  r.addJugador(j1);
+  r.addJugador(j2);
+  r.escribeJugadores();
+  Ruleta r2(c);
+  r2.leeJugadores();
+  EXPECT_FALSE(r2.getJugadores().empty());
+  EXPECT_EQ(2, r2.getJugadores().size());
+  EXPECT_EQ("44XX", r2.getJugadores().begin()->getDNI());
+  EXPECT_EQ("jugador1", r2.getJugadores().begin()->getCodigo());
+  EXPECT_EQ("55XX", (--r2.getJugadores().end())->getDNI());
+  EXPECT_EQ("jugador2", (--r2.getJugadores().end())->getCodigo());
+}
+
+TEST(Ruleta, giraRuleta) {
+  Crupier c("33XX","crupier1");
+  Ruleta r(c);
+  for (int i=0;i<100;i++){
+    r.giraRuleta();
+    EXPECT_GT(r.getBola(), -1);
+    EXPECT_LT(r.getBola(), 37);
+  }
+}
+
+TEST(Ruleta, getPremios) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
+  r.addJugador(j1);
+  r.addJugador(j2);
+
+  ofstream salida("44XX.txt");
+  salida << 1 << "," << "10" << "," << 15<< "\n";
+  salida << 2 << "," << "rojo" << "," << 25<< "\n";
+  salida << 3 << "," << "par" << "," << 35<< "\n";
+  salida << 4 << "," << "bajo" << "," << 45<< "\n";
+  salida.close();
+
+  salida.open("55XX.txt");
+  salida << 2 << "," << "rojo" << "," << 15<< "\n";
+  salida << 1 << "," << "15" << "," << 25<< "\n";
+  salida << 4 << "," << "alto" << "," << 35<< "\n";
+  salida << 3 << "," << "impar" << "," << 45<< "\n";
+  salida.close();
+
+  r.setBola(10); // negro, par, bajo
+  r.getPremios();
+  //44XX -> 1000 + 15*35 - 25 + 35 + 45 = 1580 
+  //55XX -> 1000 - 15 - 25 - 35 - 45 = 880
+  //banca_ = banca_ - 580 + 120 = 999540
+  EXPECT_EQ(1580, r.getJugadores().begin()->getDinero());
+  EXPECT_EQ(880, (++r.getJugadores().begin())->getDinero());
+  EXPECT_EQ(999540, r.getBanca());
+}
+
+TEST(Ruleta, getPremiosCero) {
+  Crupier c("33XX","crupier1");
+  Jugador j1("44XX","jugador1");
+  Jugador j2("55XX","jugador2");
+  Ruleta r(c);
+  r.addJugador(j1);
+  r.addJugador(j2);
+
+  ofstream salida("44XX.txt");
+  salida << 1 << "," << "10" << "," << 10<< "\n";
+  salida << 2 << "," << "rojo" << "," << 20<< "\n";
+  salida << 3 << "," << "par" << "," << 30<< "\n";
+  salida << 4 << "," << "bajo" << "," << 40<< "\n";
+  salida.close();
+
+  salida.open("55XX.txt");
+  salida << 2 << "," << "rojo" << "," << 50<< "\n";
+  salida << 1 << "," << "15" << "," << 60<< "\n";
+  salida << 4 << "," << "alto" << "," << 70<< "\n";
+  salida << 3 << "," << "impar" << "," << 80<< "\n";
+  salida.close();
+
+  r.setBola(0); // jugadores pierden todo
+  r.getPremios();
+  //44XX -> 1000 - 10 - 20 - 30 - 40 = 900 
+  //55XX -> 1000 - 50 - 60 - 70 - 80 = 740
+  EXPECT_EQ(900, r.getJugadores().begin()->getDinero());
+  EXPECT_EQ(740, (++r.getJugadores().begin())->getDinero());
+  EXPECT_EQ(1000360, r.getBanca());
+}
+

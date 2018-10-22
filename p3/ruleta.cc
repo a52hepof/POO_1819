@@ -2,7 +2,6 @@
 
 #include "ruleta.h"
 #include "jugador.h"
-#include "persona.h"
 #include "crupier.h"
 #include "bola.h"
 #include <list>
@@ -86,10 +85,7 @@ void Ruleta::escribeJugadores(){
 	oFile.close();
 }
 
-/*void leeJugadores() 
-lee los datos de los jugadores del fichero jugadores.txt y los mete en la lista de jugadores.
-La lista de jugadores se borra antes de añadir los jugadores del fichero jugadores.txt
-*/
+
 
 void Ruleta::leeJugadores(){
 
@@ -133,7 +129,6 @@ void Ruleta::leeJugadores(){
 }
 
 void Ruleta::limpiarLista(list <Jugador> *j){
-
 
 	j->clear();//
 
