@@ -25,7 +25,7 @@ private:
 
 public:
 	//iniciador base con herencia, como en jugador y sin herencia, como es este caso. Se hace un constructor de copia
-	Ruleta(Crupier const &c):crupier_(c){ //Iniciadores base. recibe como parámetro un objeto de tipo crupier
+	Ruleta(Crupier const &c):crupier_(c){ //Iniciador de miembro es distinto a Iniciadores base. recibe como parámetro un objeto de tipo crupier
 	//Ruleta(string a, string b):crupier(a,b) // es mejor enviar el objeto entero	
 
 		banca_=1000000;
