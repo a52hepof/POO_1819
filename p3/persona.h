@@ -93,12 +93,15 @@ public:
 
 
 	inline bool mayor() {
+		return (edad_>=18 ? true:false);
+		/*
 		if (getEdad()>18){
 			return true;
 		}
 		else
 			return false;
 
+		*/
 	}
 
 	//Dirección

@@ -14,13 +14,17 @@ using namespace std;
 #ifndef ruleta_h
 #define ruleta_h
 
+/*La clase ruleta esta compuesta por la bola que se jugara, los jugadores, un crupier y el dinero que dispone la banca
+Se inicia con un crupier, 1000000 de dinero en la banca y un valor de -1 de la bola*/
+
+
 class Ruleta{
 
 private:
 
 	int banca_;//dinero que mantiene la banca
 	int bola_;//puede tomar valores entre 0 y 36
-	list <Jugador> jugadores_;
+	list <Jugador> jugadores_; //jugadores que participaran en la ruleta
 	Crupier crupier_;
 
 public:
@@ -30,7 +34,7 @@ public:
 
 		banca_=1000000;
 		bola_=-1;
-		srand(time(NULL));//inicializamos la semilla
+		srand(time(NULL));//inicializamos la semilla para generar los numeros pseudoaletoarios que tomara la bola de la ruleta
 
 	}
 
@@ -38,7 +42,7 @@ public:
 
 	inline int getBanca() const{return banca_;};
 	inline bool setBanca(int banca){
-
+		
 		if (banca>0){
 
 			banca_=banca;

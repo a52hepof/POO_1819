@@ -21,26 +21,15 @@ class Bola{
 		};
 
 		inline bool Color(int bola){
-			if (bola==1
-			or bola==3
-			or bola==5
-			or bola==7
-			or bola==9
-			or bola==12
-			or bola==14
-			or bola==16
-			or bola==18
-			or bola==19
-			or bola==21
-			or bola==23
-			or bola==25
-			or bola==7
-			or bola==30
-			or bola==32
-			or bola==34
-			or bola==36){
+			if (bola==1 || bola==3 || bola==5 || bola==7 || bola==9
+				|| bola==12 || bola==14 || bola==16 || bola==18 || bola==19
+				|| bola==21 || bola==23 || bola==25 || bola==27
+				|| bola==30 || bola==32 || bola==34 || bola==36){
 
-			return true;
+
+			//or bola==3
+			
+				return true;
 			}
 			else{
 

@@ -248,7 +248,7 @@ TEST (Ruleta, getPremios){
     r.getPremios();
   
   }
-*/
+
 //Test Final GetPremios
 
   r.limpiarListaJugadores();
