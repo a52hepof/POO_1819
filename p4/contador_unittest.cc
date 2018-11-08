@@ -1,199 +1,334 @@
-//contador_unittest.cc
-
+// jugador_unittest.cc: Juan A. Romero
+// A sample program demonstrating using Google C++ testing framework.
+//
+// This sample shows how to write a more complex unit test for a class
+// that has multiple member functions.
+//
+// Usually, it's a good idea to have one test for each method in your
+// class.  You don't have to do that exactly, but it helps to keep
+// your tests organized.  You may also throw in additional tests as
+// needed.
 
 #include "contador.h"
-#include <list>
-#include <iostream>
 #include "gtest/gtest.h"
 
-using namespace std;
-
-
-TEST(Contador, constructorParametrosDefecto){
-
-	Contador c(-1);
-
-	EXPECT_EQ(0, c.getValor());
-	EXPECT_EQ(0, c.getMin());
-	EXPECT_EQ(1000, c.getMax());
-	
-	Contador c2(0,10,2000);
-
-	EXPECT_EQ(0, c2.getValor());
-	EXPECT_EQ(10, c2.getMin());
-	EXPECT_EQ(2000, c2.getMax());
-
-	Contador c3(-1000,-999,2000);
-
-	EXPECT_EQ(0, c3.getValor());
-	EXPECT_EQ(-999, c3.getMin());
-	EXPECT_EQ(2000, c3.getMax());
-
-	Contador c4(-2,-999,1501);
-
-	EXPECT_EQ(-2, c4.getValor());
-	EXPECT_EQ(-999, c4.getMin());
-	EXPECT_EQ(1501, c4.getMax());
+TEST(Contador, Constructor) {
+  Contador c;
+  EXPECT_EQ(0, c.get());
+  Contador d(10);
+  EXPECT_EQ(10, d.get());
+  Contador d1(-5);
+  EXPECT_EQ(0, d1.get());
+  Contador d2(4000);
+  EXPECT_EQ(0, d2.get());
+  Contador e(-3,10,20);
+  EXPECT_EQ(0, e.get());
+  Contador f(10,20,15);
+  EXPECT_EQ(0, f.get());
+  Contador g(-10,200,55);
+  EXPECT_EQ(0, g.get());
+  Contador h(-10,200,-3);
+  EXPECT_EQ(0, h.get());
+  Contador i(10,-200,55);
+  EXPECT_EQ(10, i.get());
+  Contador j(250,200,300);
+  EXPECT_EQ(250, j.get());
+  Contador k(-300,-300,200);
+  EXPECT_EQ(-300, k.get());
 }
 
-TEST (Contador, operadorEQ){
-
-	Contador c(0,1000,2000);
-	c=2;
-
-	EXPECT_EQ(0, c.getValor());
-
-	Contador c1(0,1000,2000);
-	c1=1001;
-	EXPECT_EQ(1001, c1.getValor());
-
-	Contador c3(1000, 999, 2000);
-	Contador c4(0,1,1000);
-
-	c3=c4;
-
-	EXPECT_EQ(0, c3.getValor());
-	EXPECT_EQ(1, c3.getMin());
-	EXPECT_EQ(1000, c3.getMax());
-
-	Contador c5(1000, 999, 2000);
-	Contador c6(0,1,1000);
-
-	c6=c5;
-
-	EXPECT_EQ(1000, c6.getValor());
-	EXPECT_EQ(999, c6.getMin());
-	EXPECT_EQ(2000, c6.getMax());
-
+TEST(Contador, IncrementoPostfijo1) {
+  Contador c;
+  EXPECT_EQ(0, c.get());
+  c++;
+  EXPECT_EQ(1, c.get());
+  c++;
+  EXPECT_EQ(2, c.get());
 }
 
-TEST (Contador, operadorPlusPlus){
-
-	Contador c(1,1000,2000); //el valor del contador, como minimo sera 1
-	c++;
-	EXPECT_EQ(1, c.getValor());
-
-
-	Contador c1(1001,1000,2000); //el valor del contador, como minimo sera 1
-	c1++;
-	c1++;
-	EXPECT_EQ(1003, c1.getValor());
-
-	Contador c2(1001,1000,2000); //el valor del contador, como minimo sera 1
-	++c2;
-	++c2;
-	EXPECT_EQ(1003, c1.getValor());
-
-	Contador c3(1001,1000,2000); //el valor del contador, como minimo sera 1
-	c3++;
-	c3--;
-	--c3;
-	EXPECT_EQ(1000, c3.getValor());
-
-	
-	Contador c4(1000, 1000, 2000); //se comprueba si supera el limite superior del rango
-	for (int i=0;i<1005; i++){
-		++c4;
-
-	}
-	EXPECT_EQ(2000, c4.getValor());
-
-	
-	Contador c5(1000, 1000, 3000);
-	for (int i=0;i<1005; i++){
-		c5++;
-	}
-	for (int i=0;i<2000; i++){//se comprueba si va por debajo del rango
-		c5--;
-	}
-	EXPECT_EQ(1000, c5.getValor());
+TEST(Contador, IncrementoPostfijo2) {
+  Contador c(1,10,9);
+  EXPECT_EQ(0, c.get());
+  c++;
+  c++;
+  EXPECT_EQ(2, c.get());
 }
 
-TEST(Contador, OperadorPlus){
-
-	Contador c(0);
-	10+c;
-	c+30;
-	EXPECT_EQ(40, c.getValor());
-
-	Contador c1(100, 50,220);
-	102+c1;
-	c1+3;
-	EXPECT_EQ(205, c1.getValor());
-	102+c1;
-	c1+1000;
-	EXPECT_EQ(220, c1.getValor());//no debe superar la suma
-
-
-	Contador c2(0, -20, 200);
-	10-c2;
-	EXPECT_EQ(-10, c2.getValor());
-	10-c2;
-	EXPECT_EQ(-20, c2.getValor());
-	10-c2;
-	c2-10;
-	EXPECT_EQ(-20, c2.getValor());
-	c2+30;
-	10+c2;
-	EXPECT_EQ(20, c2.getValor());
-	c2+200;
-	EXPECT_EQ(200, c2.getValor());
+TEST(Contador, IncrementoPostfijo3) {
+  Contador c(95,10,100);
+  EXPECT_EQ(95, c.get());
+  EXPECT_EQ(100, c.getMax());
+  c++;
+  EXPECT_EQ(96, c.get());
+  c++;
+  c++;
+  c++;
+  c++;
+  c++;
+  EXPECT_EQ(100, c.get());
 }
 
-TEST (Contador, listaValores){
-
-	Contador c(0);
-	c=5;
-	c.getLista();
-	int tam=c.getLista().size();
-	EXPECT_EQ(1, tam);
-	Contador c2(7);
-	c=c2;
-	tam=c.getLista().size();
-	EXPECT_EQ(2, tam);
-
-	c++;
-	++c;
-	c--;
-	c+10;
-	10-c;
-	tam=c.getLista().size();
-	EXPECT_EQ(7, tam);
-
-	list <int> Aux=c.getLista();
-
-	list<int>::iterator i;
-
-	
-	i=Aux.begin();
-
-
-	for (i = Aux.begin(); i !=Aux.end(); ++i){
-		cout<<*i<<endl;
-	}
-
-	c.undo(8);
-	EXPECT_EQ(7, c.getLista().size());
-
-
-	c.undo(0);//deshacer ultimas operaciones. Valor por defecto n=1
-	EXPECT_EQ(6, c.getLista().size());
-
-	c.undo(4);
-	EXPECT_EQ(2, c.getLista().size());
-
-	list <int> Aux2=c.getLista();
-	cout<<"**********"<<endl;
-	for (i = Aux2.begin(); i !=Aux2.end(); ++i){
-		cout<<*i<<endl;
-	}
-
-
-
-
-	
-
-
-
-
+TEST(Contador, IncrementoPrefijo1) {
+  Contador c;
+  EXPECT_EQ(0, c.get());
+  ++c;
+  EXPECT_EQ(1, c.get());
+  ++c;
+  EXPECT_EQ(2, c.get());
 }
+
+TEST(Contador, IncrementoPrefijo2) {
+  Contador c(1,10,9);
+  EXPECT_EQ(0, c.get());
+  ++c;
+  ++c;
+  EXPECT_EQ(2, c.get());
+}
+
+TEST(Contador, IncrementoPrefijo3) {
+  Contador c(99,10,100);
+  EXPECT_EQ(99, c.get());
+  ++c;
+  EXPECT_EQ(100, c.get());
+  ++c;
+  ++c;
+  ++c;
+  ++c;
+  EXPECT_EQ(100, c.get());
+}
+
+
+TEST(Contador, DecrementoPostfijo1) {
+  Contador c;
+  EXPECT_EQ(0, c.get());
+  c--;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, DecrementoPostfijo2) {
+  Contador c(1,10,10);
+  EXPECT_EQ(0, c.get());
+  c--;
+  EXPECT_EQ(0, c.get());
+  c--;
+  EXPECT_EQ(0, c.get());
+  c++;
+  EXPECT_EQ(1, c.get());
+  c++;
+  EXPECT_EQ(2, c.get());
+  c--;
+  EXPECT_EQ(1, c.get());
+}
+
+TEST(Contador, DecrementoPostfijo3) {
+  Contador c(1,10,2);
+  EXPECT_EQ(0, c.get());
+  c--;
+  c--;
+  EXPECT_EQ(0, c.get());
+}
+
+
+TEST(Contador, DecrementoPrefijo1) {
+  Contador c;
+  EXPECT_EQ(0, c.get());
+  --c;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, DecrementoPrefijo2) {
+  Contador c(1,10,10);
+  EXPECT_EQ(0, c.get());
+  --c;
+  EXPECT_EQ(0, c.get());
+  --c;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, DecrementoPrefijo3) {
+  Contador c(11,10,200);
+  EXPECT_EQ(11, c.get());
+  --c;
+  EXPECT_EQ(10, c.get());
+  --c;
+  EXPECT_EQ(10, c.get());
+}
+
+TEST(Contador, Asignacion1) {
+  Contador c;
+  c=10;
+  EXPECT_EQ(10, c.get());
+  c=5000;
+  EXPECT_EQ(1000, c.get());
+  c=-3000;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, Asignacion2) {
+  Contador c;  
+  c=5555;
+  EXPECT_EQ(1000, c.get());
+  c=-55555;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, Asignacion3) {
+  Contador c, d;
+  c=10;
+  d=c;
+  EXPECT_EQ(10, d.get());
+}
+
+TEST(Contador, DevolucionUnarioPrefijo) {
+  Contador c, d;
+  c=10;
+  EXPECT_EQ(10, c.get());
+  d=++c;
+  EXPECT_EQ(11, c.get());
+  EXPECT_EQ(11, d.get());
+  d=--c;
+  EXPECT_EQ(10, c.get());
+  EXPECT_EQ(10, d.get());
+}
+
+TEST(Contador, DevolucionUnarioPostfijo) {
+  Contador c, d;
+  c=10;
+  EXPECT_EQ(10, c.get());
+  d=c++;
+  EXPECT_EQ(11, c.get());
+  EXPECT_EQ(10, d.get());
+  d=c--;
+  EXPECT_EQ(10, c.get());
+  EXPECT_EQ(11, d.get());
+}
+
+
+TEST(Contador, Suma1) {
+  Contador c,d;
+  c=d+10;
+  EXPECT_EQ(10, c.get());
+  c=c+15;
+  EXPECT_EQ(25, c.get());
+}
+
+TEST(Contador, Suma2) {
+  Contador c,d;
+  c=10+d;
+  EXPECT_EQ(10, c.get());
+  c=15+c;
+  EXPECT_EQ(25, c.get());
+}
+
+TEST(Contador, Suma3) {
+  Contador c,d;
+  c=d+5555;
+  EXPECT_EQ(1000, c.get());
+  c=5555+d;
+  EXPECT_EQ(1000, c.get());
+
+  Contador e(1000,3000,2000);
+  e=e+5000;
+  EXPECT_EQ(1000, e.get());//parece que esta erroneo
+  e=5000+e;
+  EXPECT_EQ(1000, e.get());
+}
+
+TEST(Contador, Resta1) {
+  Contador c(1,100,10), d(1,100,10);
+  c=d-5;
+  EXPECT_EQ(0, c.get());
+  c=c-1;
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, Resta2) {
+  Contador c(10,10,100), d(10,10,100);
+  c=d-5;
+  EXPECT_EQ(10, c.get());
+  c=c-1;
+  EXPECT_EQ(10, c.get());
+}
+
+TEST(Contador, Resta3) {
+  Contador c(100,1,1000), d(100,1,1000);
+  c=d-5;
+  EXPECT_EQ(95, c.get());
+  c=c-1;
+  EXPECT_EQ(94, c.get());
+}
+
+
+TEST(Contador, Resta4) {
+  Contador c(10,10,100), d(10,10,100);
+  c=15-d;
+  EXPECT_EQ(10, c.get());
+  c=9-c;
+  EXPECT_EQ(10, c.get());
+}
+
+TEST(Contador, Resta5) {
+  Contador c(10000,1,1000000), d(10000,1,1000000);
+  c=d-5555;
+  EXPECT_EQ(4445, c.get());
+  c=1-d;
+  EXPECT_EQ(1, c.get());
+}
+
+TEST(Contador, ConstructorErroneo) {
+  Contador c(10,-200,55);
+  EXPECT_EQ(10, c.get());
+  c=-5000;  
+  EXPECT_EQ(-200, c.get()); 
+  c=5000;
+  EXPECT_EQ(55, c.get());
+  Contador d(10,200,300);
+  EXPECT_EQ(0, d.get());
+  Contador e(10,200,-300);
+  EXPECT_EQ(0, e.get());
+}
+
+
+
+TEST(Contador, Undo1) {
+  Contador c;
+  EXPECT_FALSE(c.undo());
+  EXPECT_EQ(0,c.get());
+  c++;
+  EXPECT_EQ(1,c.get());
+  EXPECT_TRUE(c.undo());
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, Undo2) {
+  Contador c;
+  EXPECT_FALSE(c.undo(-1));
+  EXPECT_FALSE(c.undo(-7));
+  c++;c++;c++;
+  EXPECT_FALSE(c.undo(4));
+  EXPECT_TRUE(c.undo(3));
+}
+
+TEST(Contador, Undo3) {
+  Contador c;
+  EXPECT_FALSE(c.undo(1));
+  c++;
+  EXPECT_TRUE(c.undo(1));
+  EXPECT_EQ(0, c.get());
+}
+
+TEST(Contador, Undo4) {
+  Contador c;
+  c++;c++;c++;
+  EXPECT_TRUE(c.undo(3));
+  EXPECT_EQ(0,c.get());
+}
+
+TEST(Contador, Undo5) {
+  Contador c(100,10,200);
+  c++;c++;c++;
+  EXPECT_TRUE(c.undo(3));
+  EXPECT_EQ(100,c.get());
+}
+
+

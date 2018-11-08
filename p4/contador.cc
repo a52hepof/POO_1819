@@ -6,24 +6,17 @@
 
 Contador::Contador(int valor, int min, int max){//valores por defecto en el fichero de cabecera
 	
-	if(valor<max){
-		min_=min;
-		max_=max;
-		if(min<=valor && valor<=max){
-
-			valor_=valor;
-		}
-		else{
-			valor_=0;
-		}
-
+	if (valor<min or valor>max){
+		valor_=0;
+		
 
 	}
 	else{
-		valor_=0;
-		min_=0;
-		max_=1000;
+		valor_=valor;
+
 	}
+	max_=max;
+	min_=min;
 
 
 
@@ -33,19 +26,34 @@ Contador::Contador(int valor, int min, int max){//valores por defecto en el fich
 
 Contador Contador::operator = (int i){
 
-	if (i<min_ || i>max_){
+	if (i<min_ ){
 		valor_=0;
 		valores_.push_back(valor_);
 
 	}
 
-	else{
-		valor_=i;
-		valores_.push_back(valor_);
+		else{
 
-	}
+			if (i>max_ ){
+				valor_=max_;
+				valores_.push_back(valor_);
 
-	return *this;
+			}
+
+			else{
+				valor_=i;
+				valores_.push_back(valor_);
+
+		
+			}
+
+		}
+
+	
+
+return *this;	
+	
+	
 		
 }
 
@@ -61,52 +69,53 @@ Contador Contador::operator = (const Contador &c){
 
 Contador Contador:: operator ++ (void){//++cont
 
-	valor_=valor_+1;
-	if (valor_>=max_){
+	++valor_;
+
+	if (valor_>max_){
 		valor_=max_;
-		valores_.push_back(valor_);
-
-		return *this;
-	}
-	else{
-		valores_.push_back(valor_);
-		return *this;
 
 	}
+	valores_.push_back(valor_);
+	printf("%d\n",valor_ );
+	
+	return *this;
 }
 
 
 Contador Contador:: operator ++ (int){//cont++
 
 	Contador aux=*this;
-	valor_=valor_+1;
-	if (valor_>=max_){
+	++valor_;
+	if (valor_>max_){
 		valor_=max_;
-		valores_.push_back(valor_);
-
-		return aux;
 	}
-	else{ 
-		valores_.push_back(valor_);
-		return aux;
+	valores_.push_back(valor_);
+	printf("%d\n",valor_ );
+	
+	return aux;
 
-	}
+	
 }
 
 
 Contador Contador:: operator -- (void){//--cont
 
-	valor_=valor_-1;
-	if (valor_<=min_){
-		valor_=max_;
-		valores_.push_back(valor_);
+	--valor_;
+	if (valor_<min_){// revisar esta condicion porque no esta en requisitos
+		valor_=min_;
 		
-		return *this;
 	}
-	else{ 
-		valores_.push_back(valor_);
-		return *this;
+
+	if (valor_<0){// revisar esta condicion porque no esta en requisitos
+		valor_=0;
+		
 	}
+	 
+	valores_.push_back(valor_);
+	return *this;
+	
+
+	
 }
 
 
@@ -114,16 +123,18 @@ Contador Contador:: operator -- (int){//cont--
 
 	Contador aux=*this;
 	valor_=valor_-1;
-	if (valor_<=min_){
+	
+	if (valor_<min_&&valor_<0){// revisar esta condicion porque no esta en requisitos
+		printf("%d\n",min_ );
 		valor_=0;
-		valores_.push_back(valor_);
-		return aux;
 	}
-	else{ 
-		valores_.push_back(valor_);
-		return aux;
+	
+	valores_.push_back(valor_);
+	printf("%d\n",valor_ );
 
-	}
+	return aux;
+
+	
 }
 
 
@@ -131,8 +142,7 @@ Contador operator+(int i, Contador &c){
 	c.valor_=c.valor_+i;
 	if (c.valor_>c.getMax()){
 		c.valor_=c.getMax();
-		c.valores_.push_back(c.valor_);
-		return c;
+
 	}
 	c.valores_.push_back(c.valor_);
 	return c;
@@ -142,8 +152,7 @@ Contador operator+(Contador &c, int i){
 	c.valor_=c.valor_+i;
 	if (c.valor_>c.getMax()){
 		c.valor_=c.getMax();
-		c.valores_.push_back(c.valor_);
-		return c;
+
 	}
 	c.valores_.push_back(c.valor_);
 
