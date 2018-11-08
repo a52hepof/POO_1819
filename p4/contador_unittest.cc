@@ -229,9 +229,9 @@ TEST(Contador, Suma3) {
 
   Contador e(1000,3000,2000);
   e=e+5000;
-  EXPECT_EQ(1000, e.get());//parece que esta erroneo
+  EXPECT_EQ(1000, e.get());//parece que esta erroneo el test, deberia ser 2000
   e=5000+e;
-  EXPECT_EQ(1000, e.get());
+  EXPECT_EQ(1000, e.get());//parece que esta erroneo el test, deberia ser 2000
 }
 
 TEST(Contador, Resta1) {

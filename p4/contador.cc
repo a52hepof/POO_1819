@@ -15,6 +15,8 @@ Contador::Contador(int valor, int min, int max){//valores por defecto en el fich
 		valor_=valor;
 
 	}
+
+
 	max_=max;
 	min_=min;
 
@@ -101,6 +103,13 @@ Contador Contador:: operator ++ (int){//cont++
 Contador Contador:: operator -- (void){//--cont
 
 	--valor_;
+	/*
+	if (valor_<min_&&valor_<0){// revisar esta condicion porque no esta en requisitos
+		printf("%d\n",min_ );
+		valor_=min_;
+	}
+
+	*/
 	if (valor_<min_){// revisar esta condicion porque no esta en requisitos
 		valor_=min_;
 		
@@ -119,6 +128,8 @@ Contador Contador:: operator -- (void){//--cont
 }
 
 
+
+
 Contador Contador:: operator -- (int){//cont--
 
 	Contador aux=*this;
@@ -128,7 +139,18 @@ Contador Contador:: operator -- (int){//cont--
 		printf("%d\n",min_ );
 		valor_=0;
 	}
+	/*
+	if (valor_<0){// revisar esta condicion porque no esta en requisitos
+		printf("%d\n",min_ );
+		valor_=0;
+	}
+
 	
+	if (valor_<min_){
+		valor_=min_;
+	}
+	
+	*/
 	valores_.push_back(valor_);
 	printf("%d\n",valor_ );
 
@@ -164,8 +186,7 @@ Contador operator-(int i, Contador &c){
 	c.valor_=c.valor_-i;
 	if (c.valor_<c.getMin()){
 		c.valor_=c.getMin();
-		c.valores_.push_back(c.valor_);
-		return c;
+		
 	}
 	c.valores_.push_back(c.valor_);
 	return c;
@@ -175,8 +196,7 @@ Contador operator-(Contador &c, int i){
 	c.valor_=c.valor_-i;
 	if (c.valor_<c.getMin()){
 		c.valor_=c.getMin();
-		c.valores_.push_back(c.valor_);
-		return c;
+		
 	}
 	c.valores_.push_back(c.valor_);
 	return c;
@@ -193,23 +213,36 @@ bool Contador::undo(int n){
 	}
 
 	int tamano=valores_.size();
-	cout<<"tamaño contador: "<<tamano<<endl;
-	if(n<tamano){
+	if(n>tamano){
+		cout<<"tamaño contador: "<<tamano<<endl;
+
+		return false;
+		
+
+	}
+
+	else{
+		tamano=valores_.size();
+		cout<<"tamaño contador2222: "<<tamano<<endl;
 
 		for (int i = 0; i < n; ++i){
 			valores_.pop_back();
 			
 		}
 
+		tamano=valores_.size();
+		printf("%d\n",valor_ );
+		cout<<"tamaño contador333: "<<tamano<<endl;
+
+		if (tamano==0)
+			valor_=0;
+		return true;
+
+
 	}
 
-	else{
-		
-		return false;
+	//si el tamoño de la lista de contadores es 0 es que el contador vale 0
 
-	}
-
-	return true;
 
 	
 	
