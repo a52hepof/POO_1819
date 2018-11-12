@@ -15,12 +15,11 @@ using namespace std;
 		int valor_;
 		int max_;
 		int min_;
-		//list <int> valores_;
+		list <int> valores_;
 
 
 	public:
 
-		list <int> valores_;
 		Contador(int valor=0, int min=0, int max=1000);//valores por defecto en fichero de cabecera. En .cc no se indican
 		//~contador();
 
