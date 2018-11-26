@@ -173,13 +173,13 @@ Contador operator-(int i, Contador &c){
 	cout<<"valor minimo= "<<c.min_<<endl;
 	cout<<"valor = "<<c.valor_<<endl;
 	
-	if ((c.valor_-i)<c.min_){
+	if ((i-c.valor_)<c.min_){
 
 		c.valor_=c.min_;
 		
 	}
 	else{
-		c.valor_=c.valor_-i;
+		c.valor_=i-c.valor_;
 
 	}
 	c.valores_.push_back(c.valor_);
