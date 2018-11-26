@@ -86,7 +86,7 @@ Contador Contador:: operator ++ (void){//++cont
 
 	}
 	valores_.push_back(valor_);
-	printf("%d\n",valor_ );
+	cout<<valor_<<endl;
 	
 	return *this;
 }
@@ -100,7 +100,8 @@ Contador Contador:: operator ++ (int){//cont++
 		valor_=max_;
 	}
 	valores_.push_back(valor_);
-	printf("%d\n",valor_ );
+	cout<<valor_<<endl;
+	
 
 	
 	return aux;
@@ -134,7 +135,8 @@ Contador Contador:: operator -- (int){//cont--
 	valor_=valor_-1;
 	
 	if (valor_<=min_){
-		printf("%d\n",min_ );
+		cout<<valor_<<endl;
+		
 		valor_=min_;
 	}
 	
